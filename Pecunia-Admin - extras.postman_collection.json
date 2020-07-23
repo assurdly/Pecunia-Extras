@@ -1,0 +1,2093 @@
+{
+	"info": {
+		"_postman_id": "3018137b-471f-403b-8009-d7d9e704c545",
+		"name": "Pecunia-Admin - extras",
+		"description": "Pecunia Admin APIs for the dashboard.\nIt has 2 major actors\n- Organization Admin: View and modify things within the organization\n- Platform Admin: View across multiple organizations but should not be able to modify things in other organization.\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Login - Org Admin Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Set Kredi Admin Token value\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"kredi_admin_token\", jsonData.data.token);    ",
+									"}); "
+								],
+								"id": "8937ce1c-f130-4470-9948-551a4674f637"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"password\": \"Password12$\",\n\"email\": \"unyime@assurdly.com\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}auth/admin/login",
+							"host": [
+								"{{baseUrl}}auth"
+							],
+							"path": [
+								"admin",
+								"login"
+							]
+						},
+						"description": "Logs in an admin user\n\n\n## Payload\n`email`: `required` email address\n`password`: `required` if password is not sent."
+					},
+					"response": [
+						{
+							"name": "Login Admin - Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"password\": \"Password123@\",\n\"email\": \"chigozie@lendsqr.com\"\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}auth/admin/login",
+									"host": [
+										"{{baseUrl}}auth"
+									],
+									"path": [
+										"admin",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "692"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2b4-kj7ANgnv7h/1+0/yQZ17RgOwQIA\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 Apr 2020 21:15:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"successful\",\n    \"data\": {\n        \"id\": 1,\n        \"role_id\": 1,\n        \"org_id\": 1,\n        \"email\": \"chigozie@lendsqr.com\",\n        \"full_name\": null,\n        \"phone_number\": null,\n        \"image_url\": null,\n        \"activated\": 1,\n        \"activated_on\": null,\n        \"created_on\": \"2020-04-09T07:07:41.000Z\",\n        \"created_by\": null,\n        \"modified_on\": null,\n        \"modified_by\": null,\n        \"deleted_flag\": 0,\n        \"deleted_on\": null,\n        \"deleted_by\": null,\n        \"role\": {\n            \"id\": 1,\n            \"name\": \"Super Admin\"\n        },\n        \"organization\": {\n            \"id\": 1,\n            \"type\": \"admin\",\n            \"name\": \"Lendsqr\",\n            \"primary_email\": \"chigozie@lendsqr.com\"\n        },\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sImlhdCI6MTU4Njg5ODkwOCwiZXhwIjoxNTg2OTAyNTA4fQ.CdV2-1AJiorvr73_hlEY6bhVeW-ccueMX8V8KoJJENI\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get users by Phone Number",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{kredi_admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTU3ODEzNzgyMSwiZXhwIjoxNTc4MTQxNDIxfQ.0T46u3T1OXUjJx3C3EI_8G7jL59es5WWLMptsJd2RY0"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}admin/user?search=08036114421",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "08036114421"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Tenor Types - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTc1MTg4ODUzLCJleHAiOjE1NzUxOTI0NTN9.C7BV6vkHBcXFtp8mc7IyyHugWk-0x5F6VAe0NdRBfGM"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}admin/product/attrib/tenor-types",
+									"host": [
+										"{{baseUrl}}admin"
+									],
+									"path": [
+										"product",
+										"attrib",
+										"tenor-types"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "390"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"186-yrgSg0fn+hGFnwdyEs0TutF6E80\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 01 Dec 2019 08:36:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"successful\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"value\": 30,\n            \"created_on\": \"2019-12-01T07:16:48.000Z\",\n            \"created_by\": null,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null\n        },\n        {\n            \"id\": 2,\n            \"value\": 15,\n            \"created_on\": \"2019-12-01T07:16:48.000Z\",\n            \"created_by\": null,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get users by firstName",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{kredi_admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTU3ODEzNzgyMSwiZXhwIjoxNTc4MTQxNDIxfQ.0T46u3T1OXUjJx3C3EI_8G7jL59es5WWLMptsJd2RY0"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}admin/user?search=Unyime",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "Unyime"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Tenor Types - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTc1MTg4ODUzLCJleHAiOjE1NzUxOTI0NTN9.C7BV6vkHBcXFtp8mc7IyyHugWk-0x5F6VAe0NdRBfGM"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}admin/product/attrib/tenor-types",
+									"host": [
+										"{{baseUrl}}admin"
+									],
+									"path": [
+										"product",
+										"attrib",
+										"tenor-types"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "390"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"186-yrgSg0fn+hGFnwdyEs0TutF6E80\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 01 Dec 2019 08:36:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"successful\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"value\": 30,\n            \"created_on\": \"2019-12-01T07:16:48.000Z\",\n            \"created_by\": null,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null\n        },\n        {\n            \"id\": 2,\n            \"value\": 15,\n            \"created_on\": \"2019-12-01T07:16:48.000Z\",\n            \"created_by\": null,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get users by BVN",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTU3ODEzNzgyMSwiZXhwIjoxNTc4MTQxNDIxfQ.0T46u3T1OXUjJx3C3EI_8G7jL59es5WWLMptsJd2RY0"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}admin/user?search=22249793580",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "22249793580"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Tenor Types - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTc1MTg4ODUzLCJleHAiOjE1NzUxOTI0NTN9.C7BV6vkHBcXFtp8mc7IyyHugWk-0x5F6VAe0NdRBfGM"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}admin/product/attrib/tenor-types",
+									"host": [
+										"{{baseUrl}}admin"
+									],
+									"path": [
+										"product",
+										"attrib",
+										"tenor-types"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "390"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"186-yrgSg0fn+hGFnwdyEs0TutF6E80\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 01 Dec 2019 08:36:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"successful\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"value\": 30,\n            \"created_on\": \"2019-12-01T07:16:48.000Z\",\n            \"created_by\": null,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null\n        },\n        {\n            \"id\": 2,\n            \"value\": 15,\n            \"created_on\": \"2019-12-01T07:16:48.000Z\",\n            \"created_by\": null,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get users by lastname",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{kredi_admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTU3ODEzNzgyMSwiZXhwIjoxNTc4MTQxNDIxfQ.0T46u3T1OXUjJx3C3EI_8G7jL59es5WWLMptsJd2RY0"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}admin/user?search=Tommy",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "Tommy"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Tenor Types - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTc1MTg4ODUzLCJleHAiOjE1NzUxOTI0NTN9.C7BV6vkHBcXFtp8mc7IyyHugWk-0x5F6VAe0NdRBfGM"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}admin/product/attrib/tenor-types",
+									"host": [
+										"{{baseUrl}}admin"
+									],
+									"path": [
+										"product",
+										"attrib",
+										"tenor-types"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "390"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"186-yrgSg0fn+hGFnwdyEs0TutF6E80\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 01 Dec 2019 08:36:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"successful\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"value\": 30,\n            \"created_on\": \"2019-12-01T07:16:48.000Z\",\n            \"created_by\": null,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null\n        },\n        {\n            \"id\": 2,\n            \"value\": 15,\n            \"created_on\": \"2019-12-01T07:16:48.000Z\",\n            \"created_by\": null,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get users by email",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTU3ODEzNzgyMSwiZXhwIjoxNTc4MTQxNDIxfQ.0T46u3T1OXUjJx3C3EI_8G7jL59es5WWLMptsJd2RY0"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}admin/user?search=unyime@assurdly.com",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "unyime@assurdly.com"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Tenor Types - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTc1MTg4ODUzLCJleHAiOjE1NzUxOTI0NTN9.C7BV6vkHBcXFtp8mc7IyyHugWk-0x5F6VAe0NdRBfGM"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}admin/product/attrib/tenor-types",
+									"host": [
+										"{{baseUrl}}admin"
+									],
+									"path": [
+										"product",
+										"attrib",
+										"tenor-types"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "390"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"186-yrgSg0fn+hGFnwdyEs0TutF6E80\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 01 Dec 2019 08:36:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"successful\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"value\": 30,\n            \"created_on\": \"2019-12-01T07:16:48.000Z\",\n            \"created_by\": null,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null\n        },\n        {\n            \"id\": 2,\n            \"value\": 15,\n            \"created_on\": \"2019-12-01T07:16:48.000Z\",\n            \"created_by\": null,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All users - platform admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTU3ODEzNzgyMSwiZXhwIjoxNTc4MTQxNDIxfQ.0T46u3T1OXUjJx3C3EI_8G7jL59es5WWLMptsJd2RY0"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}admin/user",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Tenor Types - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTc1MTg4ODUzLCJleHAiOjE1NzUxOTI0NTN9.C7BV6vkHBcXFtp8mc7IyyHugWk-0x5F6VAe0NdRBfGM"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}admin/product/attrib/tenor-types",
+									"host": [
+										"{{baseUrl}}admin"
+									],
+									"path": [
+										"product",
+										"attrib",
+										"tenor-types"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "390"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"186-yrgSg0fn+hGFnwdyEs0TutF6E80\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 01 Dec 2019 08:36:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"successful\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"value\": 30,\n            \"created_on\": \"2019-12-01T07:16:48.000Z\",\n            \"created_by\": null,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null\n        },\n        {\n            \"id\": 2,\n            \"value\": 15,\n            \"created_on\": \"2019-12-01T07:16:48.000Z\",\n            \"created_by\": null,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All users - org admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTU3ODEzNzgyMSwiZXhwIjoxNTc4MTQxNDIxfQ.0T46u3T1OXUjJx3C3EI_8G7jL59es5WWLMptsJd2RY0"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}admin/user",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Tenor Types - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTc1MTg4ODUzLCJleHAiOjE1NzUxOTI0NTN9.C7BV6vkHBcXFtp8mc7IyyHugWk-0x5F6VAe0NdRBfGM"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}admin/product/attrib/tenor-types",
+									"host": [
+										"{{baseUrl}}admin"
+									],
+									"path": [
+										"product",
+										"attrib",
+										"tenor-types"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "390"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"186-yrgSg0fn+hGFnwdyEs0TutF6E80\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 01 Dec 2019 08:36:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"successful\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"value\": 30,\n            \"created_on\": \"2019-12-01T07:16:48.000Z\",\n            \"created_by\": null,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null\n        },\n        {\n            \"id\": 2,\n            \"value\": 15,\n            \"created_on\": \"2019-12-01T07:16:48.000Z\",\n            \"created_by\": null,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Guarantors",
+			"item": [
+				{
+					"name": "Guarantors by Firstname",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}admin/guarantors",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"guarantors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Guarantors by Lastname",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Guarantors by Email",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Guarantors by Phone number",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Guarantors - org admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{kredi_admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}admin/guarantors",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"guarantors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Guarantors - platform admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}admin/guarantors",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"guarantors"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Whitelists",
+			"item": [
+				{
+					"name": "Add Whitelist",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{kredi_admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTM2MTkxMDQsImV4cCI6MTU5MzYyMjcwNH0.HtoultacQgmgh5PQkA7ACZCH6Dl2JVZFUZXD9j2oXos"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"identity_type_id\": 1050,\n\t\"identity\": \"chigzie@lendsqr.com\",\n\t\"max_amount\": 5000,\n\t\"expiry\": \"07/08/2020\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}admin/whitelists",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"whitelists"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add Whitelist - Phone Number",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTM2MTMxMjMsImV4cCI6MTU5MzYxNjcyM30.hsKpwBZbkIwWbmeLynSU4t3ij9FF7fpYatF0VcFJJq4"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"identity_type_id\": 1049,\n\t\"identity\": \"+2348163047983\",\n\t\"max_amount\": 5000,\n\t\"expiry\": \"07/08/2020\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}admin/whitelists",
+									"host": [
+										"{{baseUrl}}admin"
+									],
+									"path": [
+										"whitelists"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "631"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"277-VtS1mQpbezSpUoTm6DM5g9oy1Hs\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Jul 2020 14:29:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Item successfully added\",\n    \"data\": {\n        \"max_amount\": \"5000.00\",\n        \"identity_type_id\": 1049,\n        \"created_by\": 1,\n        \"identity\": \"08163047983\",\n        \"org_id\": 6,\n        \"expiry\": \"2020-07-07T23:00:00.000Z\",\n        \"id\": 2,\n        \"created_on\": \"2020-07-01T13:29:53.000Z\",\n        \"modified_on\": null,\n        \"modified_by\": null,\n        \"deleted_flag\": 0,\n        \"deleted_on\": null,\n        \"deleted_by\": null,\n        \"identity_type\": {\n            \"id\": 1049,\n            \"base_code\": \"A17\",\n            \"ref_code\": \"02\",\n            \"code_description\": \"Phone Number\",\n            \"additional_code\": null,\n            \"link_id\": null,\n            \"url\": null,\n            \"created_on\": \"2020-07-01T09:52:44.000Z\",\n            \"created_by\": null,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null\n        }\n    }\n}"
+						},
+						{
+							"name": "Add Whitelist - BVN",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTM2MTMxMjMsImV4cCI6MTU5MzYxNjcyM30.hsKpwBZbkIwWbmeLynSU4t3ij9FF7fpYatF0VcFJJq4"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"identity_type_id\": 1048,\n\t\"identity\": \"22365301091\",\n\t\"max_amount\": 5000,\n\t\"expiry\": \"07/08/2020\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}admin/whitelists",
+									"host": [
+										"{{baseUrl}}admin"
+									],
+									"path": [
+										"whitelists"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "622"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"26e-X+94BhMuHDv7DsNUCllE7AS9KhI\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Jul 2020 14:27:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Item successfully added\",\n    \"data\": {\n        \"max_amount\": \"5000.00\",\n        \"identity_type_id\": 1048,\n        \"created_by\": 1,\n        \"identity\": \"22365301091\",\n        \"org_id\": 6,\n        \"expiry\": \"2020-07-07T23:00:00.000Z\",\n        \"id\": 1,\n        \"created_on\": \"2020-07-01T13:27:23.000Z\",\n        \"modified_on\": null,\n        \"modified_by\": null,\n        \"deleted_flag\": 0,\n        \"deleted_on\": null,\n        \"deleted_by\": null,\n        \"identity_type\": {\n            \"id\": 1048,\n            \"base_code\": \"A17\",\n            \"ref_code\": \"01\",\n            \"code_description\": \"BVN\",\n            \"additional_code\": null,\n            \"link_id\": null,\n            \"url\": null,\n            \"created_on\": \"2020-07-01T09:52:44.000Z\",\n            \"created_by\": null,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Add from file - invalid file type",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTM3ODE4MTQsImV4cCI6MTU5Mzc4NTQxNH0.QiTtNIVcV9u0Wa5hhLLjYGL2ozJJx76PAMPc6XkD7_s"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "test.xlsx"
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}admin/whitelists/upload",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"whitelists",
+								"upload"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add from file - Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTM3ODE4MTQsImV4cCI6MTU5Mzc4NTQxNH0.QiTtNIVcV9u0Wa5hhLLjYGL2ozJJx76PAMPc6XkD7_s"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "test.xlsx"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}admin/whitelists/upload",
+									"host": [
+										"{{baseUrl}}admin"
+									],
+									"path": [
+										"whitelists",
+										"upload"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "76"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4c-L0nMe94zPwOwb6/kCxX7dQuAXd0\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 03 Jul 2020 13:10:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"List has been queued for upload\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Whitelist - Platform Admin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTM2MTkxMDQsImV4cCI6MTU5MzYyMjcwNH0.HtoultacQgmgh5PQkA7ACZCH6Dl2JVZFUZXD9j2oXos"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"identity_type_id\": 1050,\n\t\"identity\": \"chigzie@lendsqr.com\",\n\t\"max_amount\": 5000,\n\t\"expiry\": \"07/08/2020\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}admin/whitelists?page=0",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"whitelists"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Whitelist - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTM2MTkxMDQsImV4cCI6MTU5MzYyMjcwNH0.HtoultacQgmgh5PQkA7ACZCH6Dl2JVZFUZXD9j2oXos"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}admin/whitelists?page=0",
+									"host": [
+										"{{baseUrl}}admin"
+									],
+									"path": [
+										"whitelists"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1812"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"714-zDBk5E+wrBnTx7ljYbOUnV1jKrg\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Jul 2020 16:08:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Successful\",\n    \"data\": {\n        \"whitelist\": [\n            {\n                \"id\": 3,\n                \"org_id\": 6,\n                \"identity_type_id\": 1050,\n                \"identity\": \"chigzie@lendsqr.com\",\n                \"max_amount\": \"5000.00\",\n                \"expiry\": \"2020-07-07T23:00:00.000Z\",\n                \"created_on\": \"2020-07-01T14:59:01.000Z\",\n                \"created_by\": 1,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"identity_type\": {\n                    \"id\": 1050,\n                    \"base_code\": \"A17\",\n                    \"ref_code\": \"03\",\n                    \"code_description\": \"Email\",\n                    \"additional_code\": null,\n                    \"link_id\": null,\n                    \"url\": null,\n                    \"created_on\": \"2020-07-01T09:52:44.000Z\",\n                    \"created_by\": null,\n                    \"modified_on\": null,\n                    \"modified_by\": null,\n                    \"deleted_flag\": 0,\n                    \"deleted_on\": null,\n                    \"deleted_by\": null\n                }\n            },\n            {\n                \"id\": 2,\n                \"org_id\": 6,\n                \"identity_type_id\": 1049,\n                \"identity\": \"08163047983\",\n                \"max_amount\": \"5000.00\",\n                \"expiry\": \"2020-07-07T23:00:00.000Z\",\n                \"created_on\": \"2020-07-01T13:29:53.000Z\",\n                \"created_by\": 1,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"identity_type\": {\n                    \"id\": 1049,\n                    \"base_code\": \"A17\",\n                    \"ref_code\": \"02\",\n                    \"code_description\": \"Phone Number\",\n                    \"additional_code\": null,\n                    \"link_id\": null,\n                    \"url\": null,\n                    \"created_on\": \"2020-07-01T09:52:44.000Z\",\n                    \"created_by\": null,\n                    \"modified_on\": null,\n                    \"modified_by\": null,\n                    \"deleted_flag\": 0,\n                    \"deleted_on\": null,\n                    \"deleted_by\": null\n                }\n            },\n            {\n                \"id\": 1,\n                \"org_id\": 6,\n                \"identity_type_id\": 1048,\n                \"identity\": \"22365301091\",\n                \"max_amount\": \"5000.00\",\n                \"expiry\": \"2020-07-07T23:00:00.000Z\",\n                \"created_on\": \"2020-07-01T13:27:23.000Z\",\n                \"created_by\": 1,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"identity_type\": {\n                    \"id\": 1048,\n                    \"base_code\": \"A17\",\n                    \"ref_code\": \"01\",\n                    \"code_description\": \"BVN\",\n                    \"additional_code\": null,\n                    \"link_id\": null,\n                    \"url\": null,\n                    \"created_on\": \"2020-07-01T09:52:44.000Z\",\n                    \"created_by\": null,\n                    \"modified_on\": null,\n                    \"modified_by\": null,\n                    \"deleted_flag\": 0,\n                    \"deleted_on\": null,\n                    \"deleted_by\": null\n                }\n            }\n        ],\n        \"page_info\": {\n            \"page\": 0,\n            \"limit\": 10,\n            \"total_pages\": 1\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Whitelist - Org Admin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{kredi_admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTM2MTkxMDQsImV4cCI6MTU5MzYyMjcwNH0.HtoultacQgmgh5PQkA7ACZCH6Dl2JVZFUZXD9j2oXos"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"identity_type_id\": 1050,\n\t\"identity\": \"chigzie@lendsqr.com\",\n\t\"max_amount\": 5000,\n\t\"expiry\": \"07/08/2020\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}admin/whitelists?page=0",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"whitelists"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Whitelist - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTM2MTkxMDQsImV4cCI6MTU5MzYyMjcwNH0.HtoultacQgmgh5PQkA7ACZCH6Dl2JVZFUZXD9j2oXos"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}admin/whitelists?page=0",
+									"host": [
+										"{{baseUrl}}admin"
+									],
+									"path": [
+										"whitelists"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1812"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"714-zDBk5E+wrBnTx7ljYbOUnV1jKrg\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Jul 2020 16:08:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Successful\",\n    \"data\": {\n        \"whitelist\": [\n            {\n                \"id\": 3,\n                \"org_id\": 6,\n                \"identity_type_id\": 1050,\n                \"identity\": \"chigzie@lendsqr.com\",\n                \"max_amount\": \"5000.00\",\n                \"expiry\": \"2020-07-07T23:00:00.000Z\",\n                \"created_on\": \"2020-07-01T14:59:01.000Z\",\n                \"created_by\": 1,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"identity_type\": {\n                    \"id\": 1050,\n                    \"base_code\": \"A17\",\n                    \"ref_code\": \"03\",\n                    \"code_description\": \"Email\",\n                    \"additional_code\": null,\n                    \"link_id\": null,\n                    \"url\": null,\n                    \"created_on\": \"2020-07-01T09:52:44.000Z\",\n                    \"created_by\": null,\n                    \"modified_on\": null,\n                    \"modified_by\": null,\n                    \"deleted_flag\": 0,\n                    \"deleted_on\": null,\n                    \"deleted_by\": null\n                }\n            },\n            {\n                \"id\": 2,\n                \"org_id\": 6,\n                \"identity_type_id\": 1049,\n                \"identity\": \"08163047983\",\n                \"max_amount\": \"5000.00\",\n                \"expiry\": \"2020-07-07T23:00:00.000Z\",\n                \"created_on\": \"2020-07-01T13:29:53.000Z\",\n                \"created_by\": 1,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"identity_type\": {\n                    \"id\": 1049,\n                    \"base_code\": \"A17\",\n                    \"ref_code\": \"02\",\n                    \"code_description\": \"Phone Number\",\n                    \"additional_code\": null,\n                    \"link_id\": null,\n                    \"url\": null,\n                    \"created_on\": \"2020-07-01T09:52:44.000Z\",\n                    \"created_by\": null,\n                    \"modified_on\": null,\n                    \"modified_by\": null,\n                    \"deleted_flag\": 0,\n                    \"deleted_on\": null,\n                    \"deleted_by\": null\n                }\n            },\n            {\n                \"id\": 1,\n                \"org_id\": 6,\n                \"identity_type_id\": 1048,\n                \"identity\": \"22365301091\",\n                \"max_amount\": \"5000.00\",\n                \"expiry\": \"2020-07-07T23:00:00.000Z\",\n                \"created_on\": \"2020-07-01T13:27:23.000Z\",\n                \"created_by\": 1,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"identity_type\": {\n                    \"id\": 1048,\n                    \"base_code\": \"A17\",\n                    \"ref_code\": \"01\",\n                    \"code_description\": \"BVN\",\n                    \"additional_code\": null,\n                    \"link_id\": null,\n                    \"url\": null,\n                    \"created_on\": \"2020-07-01T09:52:44.000Z\",\n                    \"created_by\": null,\n                    \"modified_on\": null,\n                    \"modified_by\": null,\n                    \"deleted_flag\": 0,\n                    \"deleted_on\": null,\n                    \"deleted_by\": null\n                }\n            }\n        ],\n        \"page_info\": {\n            \"page\": 0,\n            \"limit\": 10,\n            \"total_pages\": 1\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Whitelist",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{kredi_admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTM2MTkxMDQsImV4cCI6MTU5MzYyMjcwNH0.HtoultacQgmgh5PQkA7ACZCH6Dl2JVZFUZXD9j2oXos"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"identity_type_id\": 1050,\n\t\"identity\": \"chigzie@lendsqr.com\",\n\t\"max_amount\": 5000,\n\t\"expiry\": \"07/08/2020\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}admin/whitelists/2",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"whitelists",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Whitelist - Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTM2MTkxMDQsImV4cCI6MTU5MzYyMjcwNH0.HtoultacQgmgh5PQkA7ACZCH6Dl2JVZFUZXD9j2oXos"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"identity_type_id\": 1050,\n\t\"identity\": \"chigzie@lendsqr.com\",\n\t\"max_amount\": 5000,\n\t\"expiry\": \"07/08/2020\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}admin/whitelists/2",
+									"host": [
+										"{{baseUrl}}admin"
+									],
+									"path": [
+										"whitelists",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "632"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"278-MsJv85neHqvZ4W3RYdJuhXd2Lj8\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Jul 2020 16:28:58 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Item successfully added\",\n    \"data\": {\n        \"max_amount\": \"5000.00\",\n        \"identity_type_id\": 1050,\n        \"created_by\": 1,\n        \"identity\": \"chigzie@lendsqr.com\",\n        \"org_id\": 6,\n        \"expiry\": \"2020-07-07T23:00:00.000Z\",\n        \"id\": 2,\n        \"created_on\": \"2020-07-01T13:29:53.000Z\",\n        \"modified_on\": null,\n        \"modified_by\": null,\n        \"deleted_flag\": 0,\n        \"deleted_on\": null,\n        \"deleted_by\": null,\n        \"identity_type\": {\n            \"id\": 1050,\n            \"base_code\": \"A17\",\n            \"ref_code\": \"03\",\n            \"code_description\": \"Email\",\n            \"additional_code\": null,\n            \"link_id\": null,\n            \"url\": null,\n            \"created_on\": \"2020-07-01T09:52:44.000Z\",\n            \"created_by\": null,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Whitelist",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{kredi_admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTM2MTkxMDQsImV4cCI6MTU5MzYyMjcwNH0.HtoultacQgmgh5PQkA7ACZCH6Dl2JVZFUZXD9j2oXos"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"identity_type_id\": 1050,\n\t\"identity\": \"chigzie@lendsqr.com\",\n\t\"max_amount\": 5000,\n\t\"expiry\": \"07/08/2020\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}admin/whitelists/10",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"whitelists",
+								"10"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Whitelist - Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTM2MTkxMDQsImV4cCI6MTU5MzYyMjcwNH0.HtoultacQgmgh5PQkA7ACZCH6Dl2JVZFUZXD9j2oXos"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"identity_type_id\": 1050,\n\t\"identity\": \"chigzie@lendsqr.com\",\n\t\"max_amount\": 5000,\n\t\"expiry\": \"07/08/2020\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}admin/whitelists/3",
+									"host": [
+										"{{baseUrl}}admin"
+									],
+									"path": [
+										"whitelists",
+										"3"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"37-ADRrDhMSsM7Dnriv3Z8L73cQK1Y\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Jul 2020 16:09:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Audit",
+			"item": [
+				{
+					"name": "Get Logs - org admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{kredi_admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTE1NjkwMDksImV4cCI6MTU5MTU3MjYwOX0.GfENuRHiLRjzLz_28Fxhn0rINF9g9EQ4BTkaXx_REwM"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}admin/audit?page=0&limit=10",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"audit"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Logs - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIiwic2x1ZyI6InN1cGVyX2FkbWluIn0sImlhdCI6MTU4MDQ3MDQ3NCwiZXhwIjoxNTgwNDc0MDc0fQ.82ewngvlA6blitU_p_UDpG_0bHIETH94jRsBIJge__M"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}admin/audit?page=0&limit=10",
+									"host": [
+										"{{baseUrl}}admin"
+									],
+									"path": [
+										"audit"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "3565"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ded-IGECqGT6aWQHthp/XsaNs/QolhU\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Jan 2020 12:33:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Successful\",\n    \"data\": {\n        \"logs\": [\n            {\n                \"id\": 356,\n                \"user_id\": 2,\n                \"action\": \"Login\",\n                \"ip\": \"41.86.150.82\",\n                \"description\": \"User logged in\",\n                \"created_on\": \"2020-01-31T10:29:47.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            },\n            {\n                \"id\": 355,\n                \"user_id\": 2,\n                \"action\": \"Login\",\n                \"ip\": \"197.211.61.119\",\n                \"description\": \"User logged in\",\n                \"created_on\": \"2020-01-31T05:32:48.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            },\n            {\n                \"id\": 354,\n                \"user_id\": 2,\n                \"action\": \"Rolled over savings plan.\",\n                \"ip\": \"197.211.61.119\",\n                \"description\": \"User rolled over savings plan.\",\n                \"created_on\": \"2020-01-30T20:30:59.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            },\n            {\n                \"id\": 353,\n                \"user_id\": 2,\n                \"action\": \"Rolled over savings plan.\",\n                \"ip\": \"197.211.61.119\",\n                \"description\": \"User rolled over savings plan.\",\n                \"created_on\": \"2020-01-30T20:30:00.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            },\n            {\n                \"id\": 352,\n                \"user_id\": 2,\n                \"action\": \"Rolled over savings plan.\",\n                \"ip\": \"197.211.61.119\",\n                \"description\": \"User rolled over savings plan.\",\n                \"created_on\": \"2020-01-30T20:27:12.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            },\n            {\n                \"id\": 351,\n                \"user_id\": 2,\n                \"action\": \"Rolled over savings plan.\",\n                \"ip\": \"197.211.61.119\",\n                \"description\": \"User rolled over savings plan.\",\n                \"created_on\": \"2020-01-30T20:25:42.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            },\n            {\n                \"id\": 350,\n                \"user_id\": 2,\n                \"action\": \"Rolled over savings plan.\",\n                \"ip\": \"197.211.61.119\",\n                \"description\": \"User rolled over savings plan.\",\n                \"created_on\": \"2020-01-30T20:25:36.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            },\n            {\n                \"id\": 349,\n                \"user_id\": 2,\n                \"action\": \"Login\",\n                \"ip\": \"197.211.61.119\",\n                \"description\": \"User logged in\",\n                \"created_on\": \"2020-01-30T20:25:24.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            },\n            {\n                \"id\": 348,\n                \"user_id\": 2,\n                \"action\": \"Login\",\n                \"ip\": \"197.211.61.119\",\n                \"description\": \"User logged in\",\n                \"created_on\": \"2020-01-30T20:25:09.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            },\n            {\n                \"id\": 347,\n                \"user_id\": 2,\n                \"action\": \"Rolled over savings plan.\",\n                \"ip\": \"::1\",\n                \"description\": \"User rolled over savings plan.\",\n                \"created_on\": \"2020-01-30T20:20:47.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            }\n        ],\n        \"page_info\": {\n            \"page\": 0,\n            \"limit\": 10,\n            \"total_pages\": 30\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Logs - platform admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTE1NjkwMDksImV4cCI6MTU5MTU3MjYwOX0.GfENuRHiLRjzLz_28Fxhn0rINF9g9EQ4BTkaXx_REwM"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}admin/audit?page=0&limit=10",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"audit"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Logs - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIiwic2x1ZyI6InN1cGVyX2FkbWluIn0sImlhdCI6MTU4MDQ3MDQ3NCwiZXhwIjoxNTgwNDc0MDc0fQ.82ewngvlA6blitU_p_UDpG_0bHIETH94jRsBIJge__M"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}admin/audit?page=0&limit=10",
+									"host": [
+										"{{baseUrl}}admin"
+									],
+									"path": [
+										"audit"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "3565"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ded-IGECqGT6aWQHthp/XsaNs/QolhU\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Jan 2020 12:33:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Successful\",\n    \"data\": {\n        \"logs\": [\n            {\n                \"id\": 356,\n                \"user_id\": 2,\n                \"action\": \"Login\",\n                \"ip\": \"41.86.150.82\",\n                \"description\": \"User logged in\",\n                \"created_on\": \"2020-01-31T10:29:47.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            },\n            {\n                \"id\": 355,\n                \"user_id\": 2,\n                \"action\": \"Login\",\n                \"ip\": \"197.211.61.119\",\n                \"description\": \"User logged in\",\n                \"created_on\": \"2020-01-31T05:32:48.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            },\n            {\n                \"id\": 354,\n                \"user_id\": 2,\n                \"action\": \"Rolled over savings plan.\",\n                \"ip\": \"197.211.61.119\",\n                \"description\": \"User rolled over savings plan.\",\n                \"created_on\": \"2020-01-30T20:30:59.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            },\n            {\n                \"id\": 353,\n                \"user_id\": 2,\n                \"action\": \"Rolled over savings plan.\",\n                \"ip\": \"197.211.61.119\",\n                \"description\": \"User rolled over savings plan.\",\n                \"created_on\": \"2020-01-30T20:30:00.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            },\n            {\n                \"id\": 352,\n                \"user_id\": 2,\n                \"action\": \"Rolled over savings plan.\",\n                \"ip\": \"197.211.61.119\",\n                \"description\": \"User rolled over savings plan.\",\n                \"created_on\": \"2020-01-30T20:27:12.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            },\n            {\n                \"id\": 351,\n                \"user_id\": 2,\n                \"action\": \"Rolled over savings plan.\",\n                \"ip\": \"197.211.61.119\",\n                \"description\": \"User rolled over savings plan.\",\n                \"created_on\": \"2020-01-30T20:25:42.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            },\n            {\n                \"id\": 350,\n                \"user_id\": 2,\n                \"action\": \"Rolled over savings plan.\",\n                \"ip\": \"197.211.61.119\",\n                \"description\": \"User rolled over savings plan.\",\n                \"created_on\": \"2020-01-30T20:25:36.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            },\n            {\n                \"id\": 349,\n                \"user_id\": 2,\n                \"action\": \"Login\",\n                \"ip\": \"197.211.61.119\",\n                \"description\": \"User logged in\",\n                \"created_on\": \"2020-01-30T20:25:24.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            },\n            {\n                \"id\": 348,\n                \"user_id\": 2,\n                \"action\": \"Login\",\n                \"ip\": \"197.211.61.119\",\n                \"description\": \"User logged in\",\n                \"created_on\": \"2020-01-30T20:25:09.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            },\n            {\n                \"id\": 347,\n                \"user_id\": 2,\n                \"action\": \"Rolled over savings plan.\",\n                \"ip\": \"::1\",\n                \"description\": \"User rolled over savings plan.\",\n                \"created_on\": \"2020-01-30T20:20:47.000Z\",\n                \"created_by\": 2,\n                \"modified_on\": null,\n                \"modified_by\": null,\n                \"deleted_flag\": 0,\n                \"deleted_on\": null,\n                \"deleted_by\": null,\n                \"user\": {\n                    \"first_name\": \"NORBERT\",\n                    \"last_name\": \"MADUBUKO\",\n                    \"email\": \"chigozie@lendsqr.com\"\n                }\n            }\n        ],\n        \"page_info\": {\n            \"page\": 0,\n            \"limit\": 10,\n            \"total_pages\": 30\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Log - org admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{kredi_admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTM1MTc1MjQsImV4cCI6MTU5MzUyMTEyNH0.noOr_I0gKhGYjAttcMtxGiJSiWP6-PDZwJzAiJduNRk"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}admin/audit/3440",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"audit",
+								"3440"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Log - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTM1MTc1MjQsImV4cCI6MTU5MzUyMTEyNH0.noOr_I0gKhGYjAttcMtxGiJSiWP6-PDZwJzAiJduNRk"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}admin/audit/3440",
+									"host": [
+										"{{baseUrl}}admin"
+									],
+									"path": [
+										"audit",
+										"3440"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1026"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"402-qa0nf1xDF5IXoRVIhr+D9hqzvek\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 30 Jun 2020 11:48:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Successful\",\n    \"data\": {\n        \"system_info\": {\n            \"login_count\": 22,\n            \"last_login_date\": \"2020-06-28T11:42:44.000Z\",\n            \"version_id\": null,\n            \"login_ip\": \"102.89.2.214\",\n            \"device_id\": \"2d5b2db8-4ee4-4097-bb52-45b8f519e2b0\",\n            \"login_location\": {\n                \"org\": \"AS29465 MTN NIGERIA Communication limited\",\n                \"city\": \"Lagos\",\n                \"region\": \"Lagos\",\n                \"countryCode\": \"NG\",\n                \"country\": \"Nigeria\",\n                \"postal\": \"\",\n                \"latlng\": \"6.4541,3.3947\"\n            }\n        },\n        \"log\": {\n            \"id\": 3440,\n            \"org_id\": 5,\n            \"user_id\": 147,\n            \"action\": \"Initialize add card.\",\n            \"ip\": \"197.210.8.5\",\n            \"description\": \"User initialize add card operation.A transaction fee of N50 would be charged\",\n            \"meta\": null,\n            \"created_on\": \"2020-06-29T23:08:22.000Z\",\n            \"created_by\": 147,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null,\n            \"user\": {\n                \"id\": 147,\n                \"first_name\": \"Temitope\",\n                \"last_name\": \"Oluwaseun\",\n                \"email\": \"temitope.emmanuel63@gmail.com\"\n            },\n            \"location\": {\n                \"org\": \"AS29465 MTN NIGERIA Communication limited\",\n                \"city\": \"Lagos\",\n                \"region\": \"Lagos\",\n                \"countryCode\": \"NG\",\n                \"country\": \"Nigeria\",\n                \"postal\": \"\",\n                \"latlng\": \"6.4541,3.3947\"\n            }\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Log - platform admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTM1MTc1MjQsImV4cCI6MTU5MzUyMTEyNH0.noOr_I0gKhGYjAttcMtxGiJSiWP6-PDZwJzAiJduNRk"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}admin/audit/4072",
+							"host": [
+								"{{baseUrl}}admin"
+							],
+							"path": [
+								"audit",
+								"4072"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Log - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNfYWRtaW4iOnRydWUsInJvbGUiOnsibmFtZSI6IlN1cGVyIEFkbWluIn0sIm9yZ2FuaXphdGlvbiI6eyJpZCI6NiwibmFtZSI6IkEuTGVuZHNxciIsInR5cGUiOiJhZG1pbiJ9LCJpYXQiOjE1OTM1MTc1MjQsImV4cCI6MTU5MzUyMTEyNH0.noOr_I0gKhGYjAttcMtxGiJSiWP6-PDZwJzAiJduNRk"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}admin/audit/3440",
+									"host": [
+										"{{baseUrl}}admin"
+									],
+									"path": [
+										"audit",
+										"3440"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1026"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"402-qa0nf1xDF5IXoRVIhr+D9hqzvek\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 30 Jun 2020 11:48:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Successful\",\n    \"data\": {\n        \"system_info\": {\n            \"login_count\": 22,\n            \"last_login_date\": \"2020-06-28T11:42:44.000Z\",\n            \"version_id\": null,\n            \"login_ip\": \"102.89.2.214\",\n            \"device_id\": \"2d5b2db8-4ee4-4097-bb52-45b8f519e2b0\",\n            \"login_location\": {\n                \"org\": \"AS29465 MTN NIGERIA Communication limited\",\n                \"city\": \"Lagos\",\n                \"region\": \"Lagos\",\n                \"countryCode\": \"NG\",\n                \"country\": \"Nigeria\",\n                \"postal\": \"\",\n                \"latlng\": \"6.4541,3.3947\"\n            }\n        },\n        \"log\": {\n            \"id\": 3440,\n            \"org_id\": 5,\n            \"user_id\": 147,\n            \"action\": \"Initialize add card.\",\n            \"ip\": \"197.210.8.5\",\n            \"description\": \"User initialize add card operation.A transaction fee of N50 would be charged\",\n            \"meta\": null,\n            \"created_on\": \"2020-06-29T23:08:22.000Z\",\n            \"created_by\": 147,\n            \"modified_on\": null,\n            \"modified_by\": null,\n            \"deleted_flag\": 0,\n            \"deleted_on\": null,\n            \"deleted_by\": null,\n            \"user\": {\n                \"id\": 147,\n                \"first_name\": \"Temitope\",\n                \"last_name\": \"Oluwaseun\",\n                \"email\": \"temitope.emmanuel63@gmail.com\"\n            },\n            \"location\": {\n                \"org\": \"AS29465 MTN NIGERIA Communication limited\",\n                \"city\": \"Lagos\",\n                \"region\": \"Lagos\",\n                \"countryCode\": \"NG\",\n                \"country\": \"Nigeria\",\n                \"postal\": \"\",\n                \"latlng\": \"6.4541,3.3947\"\n            }\n        }\n    }\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
